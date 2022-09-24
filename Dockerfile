@@ -1,9 +1,19 @@
-FROM node:16
-RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
-WORKDIR /home/node/app
+FROM node:16.17.0
+
+# Working dir
+WORKDIR /usr/src/app
+
+# Copy files from Build
 COPY package*.json ./
-USER node
-RUN npm install
-COPY --chown=node:node . .
-EXPOSE 8090
+
+# Install Files
+RUN npm install 
+
+# Copy SRC
+COPY . .
+
+# Open Port
+EXPOSE 3030
+
+# Docker Command to Start Service
 CMD [ "node", "app.js" ]

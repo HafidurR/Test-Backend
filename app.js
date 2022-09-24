@@ -2,7 +2,7 @@ require('dotenv').config();
 const express       = require('express');
 const morgan        = require('morgan');
 const app           = express();
-const port          = process.env.MYSQL_PORT;
+const port          = process.env.PORT;
 const activity      = require('./routes/activity.routes');
 const todo          = require('./routes/todo.routes');
 
