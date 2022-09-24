@@ -18,15 +18,15 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Activity group id is required",
+            msg: "activity_group_id cannot be null",
           },
           notEmpty: {
             args: true,
-            msg: "Activity group id cannot be empty",
+            msg: "activity_group_id cannot be empty",
           },
           isInt: {
             args: true,
-            msg: "Activity group id must be an integer value",
+            msg: "activity_group_id must be an integer value",
           },
         },
       },
@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "title is required",
+            msg: "title cannot be null",
           },
           notEmpty: {
             args: true,
@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
         values: ["Very Low", "Low", "Medium", "High", "Very High"],
         validate: {
           notNull: {
-            msg: "Prioroty is required",
+            msg: "Prioroty cannot be null",
           },
           notEmpty: {
             args: true,

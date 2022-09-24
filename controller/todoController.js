@@ -7,14 +7,14 @@ const getAllTodo = async (req, res) => {
   await todo.findAll()
     .then((result) => {
       return res.status(200).json({
-        success: true,
-        message: "success get all todo",
-        data: result,
+        status: 'success',
+        message: "success",
+        data: result
       });
     })
     .catch((err) => {
       return res.status(400).json({
-        success: false,
+        status: 'Bad request',
         message: err.message
       });
     });
@@ -31,20 +31,21 @@ const getDetailTodo = async (req, res) => {
     .then((result) => {
       if (!result) {
         return res.status(404).json({
-          success: false,
-          message: `Data with ID ${id} not found`
+          status: 'Not found',
+          message: `Data with ID ${id} not found`,
+          data: {}
         });
       } else {
         return res.status(200).json({
-          success: true,
-          message: "success get detail todo",
+          status: 'success',
+          message: "success",
           data: result
         });
       }
     })
     .catch((err) => {
       return res.status(500).json({
-        success: false,
+        statu: 'error',
         message: err.message
       });
     })
@@ -66,15 +67,16 @@ const createTodo = async (req, res) => {
     })
     .then((result) => {
       return res.status(201).json({
-        success: true,
-        message: "success add new todo list",
+        status: 'success',
+        message: "success",
         data: result
       });
     })
     .catch((err) => {
       return res.status(400).json({
-        success: false,
+        status: 'Bad request',
         message: err.message,
+        data: {}
       });
     });
 };
@@ -95,7 +97,7 @@ const updateTodo = async (req, res) => {
 
   if (!data) {
     return res.status(404).json({
-      success: false,
+      status: 'Not found',
       message: `Data with ID ${id} not found`,
     });
   } else {
@@ -116,15 +118,15 @@ const updateTodo = async (req, res) => {
           })
           .then((rsl) => {
             return res.status(200).json({
-              success: true,
-              message: "success update todo",
+              status: 'success',
+              message: 'success',
               data: rsl
             });
           })
       })
       .catch((err) => {
         return res.status(500).json({
-          success: false,
+          status: 'error',
           message: err.message,
         });
       })
@@ -134,7 +136,6 @@ const updateTodo = async (req, res) => {
 const deleteTodo = async (req, res) => {
   const id = req.params.id;
 
-  
   const data = await todo.findOne({
     where: {
       id: id
@@ -143,7 +144,7 @@ const deleteTodo = async (req, res) => {
 
   if (!data) {
     return res.status(404).json({
-      success: false,
+      status: 'Not found',
       message: `Data with ID ${id} not found`,
     });
   } else {
@@ -154,8 +155,9 @@ const deleteTodo = async (req, res) => {
       })
       .then(() => {
         return res.status(200).json({
-          success: true,
-          message: "success delete todo"
+          status: 'success',
+          message: 'success',
+          data: {}
         });
       })
       .catch((err) => {

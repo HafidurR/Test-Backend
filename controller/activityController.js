@@ -6,9 +6,9 @@ const getAllActivity = async (req, res) => {
   await activity.findAll()
     .then((result) => {
       return res.status(200).json({
-        success: true,
-        message: "success get all activity",
-        data: result,
+        status: 'success',
+        message: "success",
+        data: result
       });
     })
     .catch((err) => {
@@ -24,26 +24,27 @@ const getDetailActivity = async (req, res) => {
 
   await activity.findOne({
       where: {
-        id: id,
-      },
+        id: id
+      }
     })
     .then((result) => {
       if (!result) {
         return res.status(404).json({
-          success: false,
-          message: `Data with ID ${id} not found`
+          status: 'Not found',
+          message: `Data with ID ${id} not found`,
+          data: {}
         });
       } else {
         return res.status(200).json({
-          success: true,
-          message: "success get detail activity",
+          status: 'success',
+          message: "success",
           data: result
         });
       }
     })
     .catch((err) => {
       return res.status(500).json({
-        success: false,
+        status: 'error',
         message: err.message
       });
     })
@@ -62,15 +63,16 @@ const createActivity = async (req, res) => {
     })
     .then((result) => {
       return res.status(201).json({
-        success: true,
-        message: "success add new activity",
+        status: 'success',
+        message: "success",
         data: result,
       });
     })
     .catch((err) => {
       return res.status(400).json({
-        success: false,
+        status: 'Bad request',
         message: err.message,
+        data: {}
       });
     });
 };
@@ -90,8 +92,9 @@ const updateactivity = async (req, res) => {
 
   if (!data) {
     return res.status(404).json({
-      success: false,
+      status: 'Not found',
       message: `Data with ID ${id} not found`,
+      data: {}
     });
   } else {
     await activity.update({
@@ -110,16 +113,16 @@ const updateactivity = async (req, res) => {
           })
           .then((rsl) => {
             return res.status(200).json({
-              success: true,
-              message: "success update activity",
+              status: 'success',
+              message: "success",
               data: rsl
             });
           })
       })
       .catch((err) => {
         return res.status(500).json({
-          success: false,
-          message: err.message,
+          status: 'error',
+          message: err.message
         });
       })
   }
@@ -136,8 +139,9 @@ const deteleActivity = async (req, res) => {
 
   if (!data) {
     return res.status(404).json({
-      success: false,
+      status: 'Not found',
       message: `Data with ID ${id} not found`,
+      data: {}
     });
   } else {
     await activity.destroy({
@@ -147,13 +151,14 @@ const deteleActivity = async (req, res) => {
       })
       .then(() => {
         return res.status(200).json({
-          success: true,
-          message: "success delete activity"
+          status: 'success',
+          message: "success",
+          data: {}
         });
       })
       .catch((err) => {
         return res.status(500).json({
-          success: false,
+          status: 'error',
           message: err.message
         });
       })
